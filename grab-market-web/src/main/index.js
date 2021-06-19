@@ -1,13 +1,14 @@
 import React from "react";
 import "./index.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function MainPage() {
   const [products, setProducts] = React.useState([]);
   React.useEffect(function () {
     axios
       .get(
-        "https://453737aa-0205-4509-9a05-4a2ce15346ed.mock.pstmn.io/products"
+        "https://ae864ee6-b642-44a9-bf54-91df745e8786.mock.pstmn.io/products"
       )
       .then(function (result) {
         const products = result.data.products;
@@ -34,20 +35,22 @@ function MainPage() {
           {products.map(function (product, index) {
             return (
               <div className="product-card">
-                <div>
-                  <img className="product-img" src={product.imageUrl} />
-                </div>
-                <div className="product-contents">
-                  <span className="product-name">{product.name}</span>
-                  <span className="product-price">{product.price}원</span>
-                  <div className="product-seller">
-                    <img
-                      className="product-avatar"
-                      src="images/icons/avatar.png"
-                    />
-                    <span>{product.seller}</span>
+                <Link className="product-link" to={`/products/${index}`}>
+                  <div>
+                    <img className="product-img" src={product.imageUrl} />
                   </div>
-                </div>
+                  <div className="product-contents">
+                    <span className="product-name">{product.name}</span>
+                    <span className="product-price">{product.price}원</span>
+                    <div className="product-seller">
+                      <img
+                        className="product-avatar"
+                        src="images/icons/avatar.png"
+                      />
+                      <span>{product.seller}</span>
+                    </div>
+                  </div>
+                </Link>
               </div>
             );
           })}
